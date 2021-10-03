@@ -7,15 +7,15 @@ import 'dart:convert';
 import 'package:hive/hive.dart';
 import 'package:vfocus/models/source.dart';
 
-part 'post.g.dart';
+part 'article.g.dart';
 
-Post postFromJson(String str) => Post.fromJson(json.decode(str));
+Article articleFromJson(String str) => Article.fromJson(json.decode(str));
 
-String postToJson(Post data) => json.encode(data.toJson());
+String articleToJson(Article data) => json.encode(data.toJson());
 
 @HiveType(typeId: 1)
-class Post {
-    Post({
+class Article {
+    Article({
         required this.source,
         required this.author,
         required this.title,
@@ -30,7 +30,7 @@ class Post {
     Source source;
 
     @HiveField(1)
-    String author;
+    String? author;
 
     @HiveField(2)
     String title;
@@ -50,7 +50,7 @@ class Post {
     @HiveField(7)
     String content;
 
-    factory Post.fromJson(Map<String, dynamic> json) => Post(
+    factory Article.fromJson(Map<String, dynamic> json) => Article(
         source: Source.fromJson(json["source"]),
         author: json["author"],
         title: json["title"],
