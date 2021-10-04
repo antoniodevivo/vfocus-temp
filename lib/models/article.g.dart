@@ -20,7 +20,7 @@ class ArticleAdapter extends TypeAdapter<Article> {
       source: fields[0] as Source,
       author: fields[1] as String?,
       title: fields[2] as String,
-      description: fields[3] as String,
+      description: fields[3] as String?,
       url: fields[4] as String,
       urlToImage: fields[5] as String?,
       publishedAt: fields[6] as DateTime,

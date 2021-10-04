@@ -36,7 +36,7 @@ class Article {
     String title;
 
     @HiveField(3)
-    String description;
+    String? description;
 
     @HiveField(4)
     String url;

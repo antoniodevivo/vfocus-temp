@@ -10,6 +10,7 @@ import 'package:vfocus/views/home_page.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ArticleAdapter());
+  await Hive.openBox('articles');
   runApp(App());
 }
 
@@ -26,14 +27,13 @@ class _AppState extends State<App> {
     return GetMaterialApp(
         title: 'Vfocus',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-          appBarTheme: AppBarTheme(
-            backgroundColor: Color(0xff79B4B7),
-          ),
-          secondaryHeaderColor: Color(0xff9D9D9D),
-          backgroundColor: Color(0xffFEFBF3),
-          cardColor: Color(0xffF8F0DF)
-        ),
+            primarySwatch: Colors.blue,
+            appBarTheme: AppBarTheme(
+              backgroundColor: Color(0xff79B4B7),
+            ),
+            secondaryHeaderColor: Color(0xff9D9D9D),
+            backgroundColor: Color(0xffFEFBF3),
+            cardColor: Color(0xffF8F0DF)),
         debugShowCheckedModeBanner: false,
         home: const AppMainPage());
   }

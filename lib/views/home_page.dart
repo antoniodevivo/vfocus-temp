@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            getArticlesListComponent(articlesController.articles),
+            getArticlesListHomePageComponent(articlesController.articles),
             Center(child: Text("Bookmarks"))
           ],
         ),
