@@ -5,11 +5,17 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:vfocus/controllers/articles_controller.dart';
 import 'package:vfocus/models/article.dart';
+import 'package:vfocus/models/source.dart';
+
 import 'package:vfocus/views/home_page.dart';
+
+
 
 void main() async {
   await Hive.initFlutter();
-  Hive.registerAdapter(ArticleAdapter());
+  Hive
+  ..registerAdapter(ArticleAdapter())
+  ..registerAdapter(SourceAdapter());
   await Hive.openBox('articles');
   runApp(App());
 }
@@ -40,6 +46,7 @@ class _AppState extends State<App> {
 
   @override
   void dispose() {
+    Hive.box("articles").compact();
     Hive.close();
     super.dispose();
   }

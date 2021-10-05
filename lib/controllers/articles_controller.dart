@@ -22,18 +22,21 @@ class ArticlesController extends GetxController {
   void onInit() {
     super.onInit();
     fetchArticles();
+    fetchBookmarks();
   }
 
   void addArticleToBookmarks(Article article) {
     final articlesBox = Hive.box('articles');
-    articlesBox.add(article);
+    articlesBox.put(article.url, article);
     favouriteArticles.add(article);
+    update();
   }
 
   void removeArticleToBookmarks(Article article) {
     final articlesBox = Hive.box('articles');
-    articlesBox.delete(article);
+    articlesBox.delete(article.url);
     favouriteArticles.remove(article);
+    update();
   }
 
   void fetchArticles() async {
@@ -57,4 +60,11 @@ class ArticlesController extends GetxController {
       throw Exception('Failed to load articles');
     }
   }
+
+  void fetchBookmarks(){
+    var dbArticles = Hive.box("articles");
+    favouriteArticles.addAll(dbArticles.values);
+    update();
+  }
+
 }

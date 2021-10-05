@@ -45,16 +45,62 @@ Widget getArticlesListHomePageComponent(var articles) {
           })));
 }
 
+Widget getArticlesListBookmarkPageComponent(var articles) {
+  return Obx(() => Scrollbar(
+
+      child: ListView.builder(
+          itemCount: articles.length,
+          itemBuilder: (context, index) {
+            if(articles.length > 0)
+              return buildArticleCard(context, articles[index], index);
+            else
+              return Expanded(
+                child: Container(
+                  height: 60,
+                  child: Center(
+                    child: Text("No bookmarks here")
+                  ),
+                ),
+              );
+          })));
+}
+
 Widget buildArticleCard(BuildContext context, Article article, int index) {
   return Card(
+
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Container(
-          child: Text(article.title),
+        ListTile(
+          title: Text(article.title ??= ""),
+          subtitle: Text(article.description ??= ""),
+          trailing: Wrap(
+            children: <Widget>[
+              GetBuilder<ArticlesController>(
+                  builder: (pc) {
+                    if ( articlesController.favouriteArticles.firstWhere((element) => element.url == article.url, orElse: () => null) != null )
+                      return IconButton(
+                        icon: const Icon(Icons.bookmark),
+                        tooltip: 'Remove bookmark',
+                        onPressed: () {
+                          articlesController.removeArticleToBookmarks(article);
+                        },
+                      );
+                    else
+                      return IconButton(
+                        icon: const Icon(Icons.bookmark_border),
+                        tooltip: 'Add bookmark',
+                        onPressed: () {
+                          articlesController.addArticleToBookmarks(article);
+                        },
+                      );
+                  })
+              
+            ],
+          ),
         ),
         SizedBox(
-          height: 50,
+          height: 20,
         )
       ],
     ),

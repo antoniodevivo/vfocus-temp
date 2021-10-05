@@ -33,13 +33,13 @@ class Article {
     String? author;
 
     @HiveField(2)
-    String title;
+    String? title;
 
     @HiveField(3)
     String? description;
 
     @HiveField(4)
-    String url;
+    String? url;
 
     @HiveField(5)
     String? urlToImage;
@@ -48,7 +48,7 @@ class Article {
     DateTime publishedAt;
 
     @HiveField(7)
-    String content;
+    String? content;
 
     factory Article.fromJson(Map<String, dynamic> json) => Article(
         source: Source.fromJson(json["source"]),
